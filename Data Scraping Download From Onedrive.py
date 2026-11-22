@@ -33,9 +33,9 @@ if os.path.exists(folder_path):
         filename_substrings.update(substrings)
     
     lokal = []
-    # Print the filenames containing both "DR" and "DH"
+    # Print the filenames containing "Daily Report"
     for filename in filenames:
-        if "DR DH" in filename:
+        if "Daily Report" in filename:
             lokal.append(filename)
 
 
@@ -76,15 +76,15 @@ async def main():
     # goto page sharepoint
     await page.goto("--- Link that you want ---")
 
-    # goto 01. DPR
+    # goto 01. Reports
     await page.waitForSelector('.ms-Breadcrumb-list')
-    await page.click('button[title="01. DPR"]')
+    await page.click('button[title="01. Reports"]')
 
     # Use asyncio.sleep instead of page.waitForTimeout
     await asyncio.sleep(2)
 
-    # goto 03. EKP
-    await page.click('button[title="03. EKP"]')
+    # goto 03. Daily
+    await page.click('button[title="03. Daily"]')
 
     # Use asyncio.sleep instead of page.waitForTimeout
     await asyncio.sleep(1)
@@ -93,11 +93,11 @@ async def main():
     listFileSelector = await page.querySelectorAll('[data-automationid="DetailsRowCheck"]')
     for element in listFileSelector:
         title = await page.evaluate('(element) => element.title', element)
-        if title not in lokal and title.startswith('DR DH'):
+        if title not in lokal and title.startswith('Daily Report'):
             # Add to variable
             non.append(title)
             await asyncio.sleep(2)
-            # Click on the element with title "DH DPR"
+            # Click on the element with title "Daily Report"
             if non == ya:
                     print('No New File')
                 else:
